@@ -13,6 +13,7 @@ Object {
   "isPending": false,
   "resendCode": [MockFunction],
   "route": "idle",
+  "setNavigableRoute": [MockFunction],
   "signOut": [MockFunction],
   "skipVerification": [MockFunction],
   "socialProviders": Array [],

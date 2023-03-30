@@ -30,6 +30,7 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   totpSecretCode: null,
   initializeMachine: jest.fn(),
   resendCode: jest.fn(),
+  setNavigableRoute: jest.fn(),
   signOut: jest.fn(),
   submitForm: jest.fn(),
   updateForm: jest.fn(),

@@ -48,8 +48,16 @@ export const LoginMechanismArray = [
 /** Login mechanisms that can be used to sign in */
 export type LoginMechanism = typeof LoginMechanismArray[number];
 
-/** List of social provider Authenticator supports */
-export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+/**
+ * Default supported federated sign sn providers
+ */
+export type FederatedProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+
+/**
+ * @deprecated use `FederatedProvider`
+ * List of social provider Authenticator supports
+ */
+export type SocialProvider = FederatedProvider;
 
 export const authFieldsWithDefaults = [
   ...LoginMechanismArray,

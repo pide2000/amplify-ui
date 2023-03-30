@@ -2,3 +2,6 @@ dist
 
 # ignore jest generated coverage directory
 coverage 
+
+# open tracking issue
+components.d.ts

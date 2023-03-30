@@ -16,7 +16,7 @@ export function FederatedSignIn(): JSX.Element {
     ({ route, socialProviders }) => [route, socialProviders]
   );
 
-  if (socialProviders.length === 0) {
+  if (socialProviders?.length === 0) {
     // @ts-ignore
     return null;
   }
@@ -27,7 +27,7 @@ export function FederatedSignIn(): JSX.Element {
       padding={`0 0 1rem 0`}
       className="federated-sign-in-container"
     >
-      {socialProviders.map((provider) => {
+      {socialProviders?.map((provider) => {
         switch (provider) {
           case 'amazon':
             return (

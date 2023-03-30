@@ -56,9 +56,9 @@ export default function MyApp(props) {
 
   return (
     <AmplifyProvider>
-      <Authenticator.Provider>
-        <App {...props} />
-      </Authenticator.Provider>
+      {/* <Authenticator.Provider> */}
+      <App {...props} />
+      {/* </Authenticator.Provider> */}
     </AmplifyProvider>
   );
 }

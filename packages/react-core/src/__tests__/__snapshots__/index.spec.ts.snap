@@ -6,12 +6,13 @@ Array [
   "RenderNothing",
   "isAuthenticatorComponentRouteKey",
   "resolveAuthenticatorComponents",
-  "templateJoin",
+  "resolveChildrenOrCallback",
   "useAuthenticator",
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
   "useDeprecationWarning",
   "useHasValueUpdated",
   "usePreviousValue",
+  "useTimeout",
 ]
 `;

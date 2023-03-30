@@ -11,8 +11,10 @@ const INTERNAL_DIRECTORY_ROOTS = ['packages'];
 // internal packages used by the RN example
 const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
   'react-core',
+  'react-core-auth',
   'react-core-notifications',
   'react-native',
+  'react-native-auth',
   'ui',
 ];
 
@@ -122,6 +124,7 @@ config.resolver.extraNodeModules = {
 
   // xstate uses React under the hood
   '@xstate/react': path.resolve(__dirname, 'node_modules/@xstate/react'),
+  'react-hook-form': path.resolve(__dirname, 'node_modules/react-hook-form'),
 
   // depedendencies with native modules
   '@react-native-picker/picker': path.resolve(

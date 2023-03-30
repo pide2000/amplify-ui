@@ -4,6 +4,7 @@ export * from './IconCheckCircle';
 export * from './IconCheck';
 export * from './IconChevronLeft';
 export * from './IconChevronRight';
+export * from './IconCopy';
 export * from './IconClose';
 export * from './IconEdit';
 export * from './IconError';

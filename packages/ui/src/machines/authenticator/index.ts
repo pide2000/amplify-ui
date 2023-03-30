@@ -11,6 +11,7 @@ import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
+import { isObject } from '../../utils';
 
 const { choose } = actions;
 const DEFAULT_COUNTRY_CODE = '+1';
@@ -19,7 +20,25 @@ export type AuthenticatorMachineOptions = AuthContext['config'] & {
   services?: AuthContext['services'];
 };
 
-export function createAuthenticatorMachine() {
+const STANDARD_WAIT_CONFIG = {
+  on: {
+    INIT: {
+      actions: ['configure', 'setHasSetup'],
+      target: 'applyConfig',
+    },
+  },
+};
+
+const OVERRIDE_WAIT_CONFIG = {
+  always: {
+    actions: ['configure', 'setHasSetup'],
+    target: 'applyConfig',
+  },
+};
+
+export function createAuthenticatorMachine(
+  overrideServices?: AuthenticatorMachineOptions
+) {
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -49,14 +68,9 @@ export function createAuthenticatorMachine() {
         setup: {
           initial: 'waitConfig',
           states: {
-            waitConfig: {
-              on: {
-                INIT: {
-                  actions: ['configure', 'setHasSetup'],
-                  target: 'applyConfig',
-                },
-              },
-            },
+            waitConfig: overrideServices
+              ? OVERRIDE_WAIT_CONFIG
+              : STANDARD_WAIT_CONFIG,
             applyConfig: {
               invoke: {
                 // TODO Wait for Auth to be configured
@@ -358,7 +372,10 @@ export function createAuthenticatorMachine() {
         stopResetPasswordActor: stopActor('resetPasswordActor'),
         stopSignOutActor: stopActor('signOutActor'),
         configure: assign((_, event) => {
-          const { services: customServices, ...config } = event.data;
+          const { services: customServices, ...config } = (
+            isObject(overrideServices) ? overrideServices : event
+          ) as AuthenticatorMachineOptions;
+
           return {
             services: { ...defaultServices, ...customServices },
             config,

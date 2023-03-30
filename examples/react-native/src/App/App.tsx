@@ -9,6 +9,9 @@ import { EXAMPLE_APP_NAME } from '@env';
 /**
  * `Authenticator` Example and Demo Apps
  */
+const FormExample = React.lazy(
+  () => import('../features/Authenticator/Form/Example')
+);
 const DemoExample = React.lazy(
   () => import('../features/Authenticator/Demo/Example')
 );
@@ -89,6 +92,8 @@ export const ExampleComponent = () => {
   // .env file or launch argument passed from Detox
   const APP = EXAMPLE_APP_NAME ?? LaunchArguments.value().EXAMPLE_APP_NAME;
   switch (APP) {
+    case 'Form':
+      return <FormExample />;
     case 'DemoExample':
       return <DemoExample />;
     case 'BasicExample':

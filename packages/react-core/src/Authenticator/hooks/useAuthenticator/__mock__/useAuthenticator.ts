@@ -17,6 +17,7 @@ const isPending = false;
 const QRFields = null;
 const resendCode = jest.fn();
 const route = 'idle';
+const setNavigableRoute = jest.fn();
 const skipVerification = jest.fn();
 const signOut = jest.fn();
 const socialProviders = [] as AuthenticatorMachineContext['socialProviders'];
@@ -44,6 +45,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   isPending,
   resendCode,
   route,
+  setNavigableRoute,
   signOut,
   submitForm,
   updateForm,

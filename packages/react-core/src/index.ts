@@ -20,13 +20,21 @@ export {
   UseAuthenticatorRoute,
 } from './Authenticator';
 
-export { RenderNothing } from './components';
-
 // components/hooks/utils
+export { RenderNothing } from './components';
 export {
   useDeprecationWarning,
   UseDeprecationWarning,
   useHasValueUpdated,
   usePreviousValue,
+  useTimeout,
 } from './hooks';
-export { templateJoin } from './utils';
+export {
+  AnyComponent,
+  ResolveDefaultOrSlotComponentsPropsType,
+  SubComponent,
+  ViewComponent,
+  ViewSubComponents,
+  WithContextProps,
+} from './types';
+export { createContextUtility, resolveChildrenOrCallback } from './utils';

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.3",
+    "@aws-amplify/ui-react-auth": "0.0.1",
     "@aws-amplify/ui-react-liveness": "^1.0.5",
     "@aws-amplify/ui-react-storage": "^2.0.3",
     "@aws-amplify/ui-react-notifications": "^1.0.4",
