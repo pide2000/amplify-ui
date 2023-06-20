@@ -13,6 +13,7 @@ import {
 import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { AwsCredentialProvider } from '../types';
+import { getLivenessUserAgent } from '../../utils/platform';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -130,7 +131,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
       region: this.region,
-      customUserAgent: getAmplifyUserAgent(),
+      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent}`,
       requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
 
