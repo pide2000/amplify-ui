@@ -14,6 +14,7 @@ import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { AwsCredentialProvider } from '../types';
 import { getLivenessUserAgent } from '../../utils/platform';
+import { AwsCredentialProvider } from '../types';
 
 export interface StartLivenessStreamInput {
   sessionId: string;

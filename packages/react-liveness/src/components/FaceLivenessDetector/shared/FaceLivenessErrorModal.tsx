@@ -8,6 +8,7 @@ import { LivenessErrorState } from '../service';
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
 import { defaultErrorDisplayText, ErrorDisplayText } from '../displayText';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface CheckScreenComponents {
   ErrorView?: React.ComponentType<FaceLivenessErrorModalProps>;
@@ -66,14 +67,9 @@ const renderToastErrorModal = (props: {
 
   return (
     <>
-      <Flex
-        gap="xs"
-        alignItems="center"
-        justifyContent="center"
-        color="font.error"
-      >
+      <Flex className={LivenessClassNames.ErrorModal}>
         <AlertIcon ariaHidden variation="error" />
-        <Text fontWeight="bold">{heading}</Text>
+        <Text className={LivenessClassNames.ErrorModalHeading}>{heading}</Text>
       </Flex>
       {message}
     </>
@@ -119,7 +115,7 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
   const { tryAgainText } = displayText;
 
   return (
-    <Overlay backgroundColor="overlay.40">
+    <Overlay className={LivenessClassNames.OpaqueOverlay}>
       <Toast>
         {children}
         <Flex justifyContent="center">
