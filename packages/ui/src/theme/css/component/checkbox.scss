@@ -18,10 +18,10 @@
   justify-content: var(--amplify-components-checkbox-button-justify-content);
   color: var(--amplify-components-checkbox-button-color);
   //these internal css variables are used to update the values that are influenced by multiple modified states
-  --amplify-internal-checkbox_button-focused-before-border-color: var(
+  --amplify-internal-checkbox_button-focus-before-border-color: var(
     --amplify-components-checkbox-button-focus-border-color
   );
-  --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+  --amplify-internal-checkbox_button-focus-before-box-shadow: var(
     --amplify-components-checkbox-button-focus-box-shadow
   );
 
@@ -55,11 +55,9 @@
     );
 
     border-color: var(
-      --amplify-internal-checkbox_button-focused-before-border-color
+      --amplify-internal-checkbox_button-focus-before-border-color
     );
-    box-shadow: var(
-      --amplify-internal-checkbox_button-focused-before-box-shadow
-    );
+    box-shadow: var(--amplify-internal-checkbox_button-focus-before-box-shadow);
   }
 
   &--error {
@@ -68,11 +66,11 @@
         --amplify-components-checkbox-button-error-border-color
       );
     }
-    // Note: this resets the value of focused state border-color style when an error occurs
-    --amplify-internal-checkbox_button-focused-before-border-color: var(
+    // Note: this resets the value of focus state border-color style when an error occurs
+    --amplify-internal-checkbox_button-focus-before-border-color: var(
       --amplify-components-checkbox-button-error-focus-border-color
     );
-    --amplify-internal-checkbox_button-focused-before-box-shadow: var(
+    --amplify-internal-checkbox_button-focus-before-box-shadow: var(
       --amplify-components-checkbox-button-error-focus-box-shadow
     );
   }
