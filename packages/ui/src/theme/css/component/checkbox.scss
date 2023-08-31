@@ -1,7 +1,7 @@
 .amplify-checkbox {
   cursor: var(--amplify-components-checkbox-cursor);
   align-items: var(--amplify-components-checkbox-align-items);
-  flex-direction: row-reverse;
+  flex-direction: row;
   gap: inherit;
   // https://github.com/aws-amplify/amplify-ui/issues/3165
   // without a relatively positioned element in the ancestor tree,
@@ -40,28 +40,26 @@
     border-color: var(--amplify-components-checkbox-button-before-border-color);
   }
 
-  &--focused {
-    &::before {
-      outline-color: var(
-        --amplify-components-checkbox-button-focus-outline-color
-      );
-      outline-style: var(
-        --amplify-components-checkbox-button-focus-outline-style
-      );
-      outline-width: var(
-        --amplify-components-checkbox-button-focus-outline-width
-      );
-      outline-offset: var(
-        --amplify-components-checkbox-button-focus-outline-offset
-      );
+  .amplify-checkbox__input:focus + &::before {
+    outline-color: var(
+      --amplify-components-checkbox-button-focus-outline-color
+    );
+    outline-style: var(
+      --amplify-components-checkbox-button-focus-outline-style
+    );
+    outline-width: var(
+      --amplify-components-checkbox-button-focus-outline-width
+    );
+    outline-offset: var(
+      --amplify-components-checkbox-button-focus-outline-offset
+    );
 
-      border-color: var(
-        --amplify-internal-checkbox_button-focused-before-border-color
-      );
-      box-shadow: var(
-        --amplify-internal-checkbox_button-focused-before-box-shadow
-      );
-    }
+    border-color: var(
+      --amplify-internal-checkbox_button-focused-before-border-color
+    );
+    box-shadow: var(
+      --amplify-internal-checkbox_button-focused-before-box-shadow
+    );
   }
 
   &--error {
@@ -136,6 +134,6 @@
   }
 }
 
-.amplify-checkbox__label[data-disabled='true'] {
+.amplify-checkbox__label--disabled {
   color: var(--amplify-components-checkbox-label-disabled-color);
 }

@@ -1,9 +1,9 @@
 [data-label-position='start'] {
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 
 [data-label-position='end'] {
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 [data-label-position='top'] {

@@ -7,7 +7,6 @@ import { Flex } from '../Flex';
 import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
-import { VisuallyHidden } from '../VisuallyHidden';
 import { BaseCheckboxProps, CheckboxProps } from '../types/checkbox';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/getTestId';
@@ -29,8 +28,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     label,
     labelHidden,
     labelPosition,
-    onBlur: _onBlur,
-    onFocus: _onFocus,
     onChange: _onChange,
     testId,
     inputStyles,
@@ -40,7 +37,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 ) => {
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
-  const [focused, setFocused] = React.useState(false);
   const icons = useIcons('checkbox');
   const { isFieldsetDisabled } = useFieldset();
   const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
@@ -62,20 +58,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     if (!isControlled) {
       setLocalChecked(e.target.checked);
     }
-  };
-
-  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (isFunction(_onFocus)) {
-      _onFocus(e);
-    }
-    setFocused(true);
-  };
-
-  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (isFunction(_onBlur)) {
-      _onBlur(e);
-    }
-    setFocused(false);
   };
 
   const dataId = useStableId();
@@ -102,11 +84,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       ComponentClassNames.CheckboxButton,
       'error',
       hasError
-    ),
-    classNameModifierByFlag(
-      ComponentClassNames.CheckboxButton,
-      'focused',
-      focused
     )
   );
   const iconClasses = classNames(
@@ -127,10 +104,17 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       isIndeterminate
     )
   );
+  const labelClasses = classNames(
+    ComponentClassNames.CheckboxLabel,
+    { [ComponentClassNames.VisuallyHidden]: labelHidden },
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxLabel,
+      'disabled',
+      shouldBeDisabled
+    )
+  );
   const iconProps = {
     className: classNames(iconClasses),
-    'data-checked': localChecked,
-    'data-disabled': shouldBeDisabled,
     'data-testid': iconTestId,
   };
 
@@ -161,51 +145,40 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         ),
         className
       )}
-      data-disabled={shouldBeDisabled}
       data-label-position={labelPosition}
       testId={testId}
       {...styleProps}
     >
-      <VisuallyHidden>
-        <Input
-          checked={controlledChecked}
-          className={ComponentClassNames.CheckboxInput}
-          data-id={dataId}
-          defaultChecked={defaultChecked}
-          isDisabled={shouldBeDisabled}
-          onBlur={onBlur}
-          onChange={onChange}
-          onFocus={onFocus}
-          ref={ref}
-          type="checkbox"
-          {...rest}
-        />
-      </VisuallyHidden>
-      {label && (
-        <Text
-          as="span"
-          className={classNames(ComponentClassNames.CheckboxLabel, {
-            [ComponentClassNames.VisuallyHidden]: labelHidden,
-          })}
-          data-disabled={shouldBeDisabled}
-          testId={labelTestId}
-        >
-          {label}
-        </Text>
-      )}
+      <Input
+        checked={controlledChecked}
+        className={classNames(
+          ComponentClassNames.CheckboxInput,
+          ComponentClassNames.VisuallyHidden
+        )}
+        data-id={dataId}
+        defaultChecked={defaultChecked}
+        isDisabled={shouldBeDisabled}
+        onChange={onChange}
+        ref={ref}
+        type="checkbox"
+        {...rest}
+      />
+
       <Flex
         aria-hidden="true"
         as="span"
         className={flexClasses}
-        data-checked={checked}
-        data-disabled={shouldBeDisabled}
-        data-focus={focused}
-        data-error={hasError}
         testId={buttonTestId}
         {...inputStyles}
       >
         {isIndeterminate ? indeterminateIcon : checkedIcon}
       </Flex>
+
+      {label && (
+        <Text as="span" className={labelClasses} testId={labelTestId}>
+          {label}
+        </Text>
+      )}
     </Flex>
   );
 };
