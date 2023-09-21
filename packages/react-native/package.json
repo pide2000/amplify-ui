@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
+  "private": true,
   "version": "1.2.28",
   "main": "lib/index.js",
   "module": "dist/index.js",

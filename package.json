@@ -44,8 +44,9 @@
       "docs",
       "environments",
       "examples/*",
-      "packages/*",
-      "packages/angular/projects/ui-angular",
+      "packages/react",
+      "packages/react-core",
+      "packages/ui",
       "packages/configs/eslint"
     ],
     "nohoist": [

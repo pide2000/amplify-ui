@@ -12,6 +12,5 @@ export {
   defaultTheme,
   defaultDarkModeOverride,
   createTheme,
-  translations,
 } from '@aws-amplify/ui';
 export type { Theme } from '@aws-amplify/ui';
