@@ -12,7 +12,6 @@
   "ignore": [
     "@aws-amplify/ui-angular-example",
     "@aws-amplify/ui-docs",
-    "@aws-amplify/ui-e2e",
     "@aws-amplify/ui-environments",
     "@aws-amplify/ui-next-example",
     "@aws-amplify/ui-react-native-example",
