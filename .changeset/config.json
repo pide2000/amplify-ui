@@ -10,7 +10,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@aws-amplify/ui-angular-mono",
     "@aws-amplify/ui-angular-example",
     "@aws-amplify/ui-docs",
     "@aws-amplify/ui-e2e",
