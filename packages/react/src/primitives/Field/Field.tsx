@@ -17,7 +17,7 @@ import { Label } from '../Label';
 
 interface FieldPrimitiveProps
   extends BaseFieldProps,
-    BaseInputProps,
+    Omit<BaseInputProps, 'isRequired'>,
     FlexContainerStyleProps,
     BaseViewProps {}
 
