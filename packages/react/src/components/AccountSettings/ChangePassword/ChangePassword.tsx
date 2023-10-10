@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import isEqual from 'lodash/isEqual.js';
 
 import { Logger } from 'aws-amplify';
@@ -190,6 +191,15 @@ function ChangePassword({
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
   }
+
+  useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storagemanager']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
 
   return (
     <View

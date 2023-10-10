@@ -1,4 +1,5 @@
 import React, { forwardRef, useEffect, useMemo, useState } from 'react';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
@@ -80,6 +81,15 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         }
       })();
     }, [geoConfig]);
+
+    useEffect(() => {
+      const clearCustomUserAgent = setCustomUserAgent({
+        category: Category.Storage,
+        apis: [StorageAction.GetUrl],
+        additionalDetails: [['component', 'storagemanager']],
+      });
+      return () => clearCustomUserAgent();
+    }, []);
 
     /**
      * The mapLib property is used by react-map-gl@v7 to override the underlying map library. The default library is

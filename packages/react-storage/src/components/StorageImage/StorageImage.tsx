@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import { Image, ComponentClassNames } from '@aws-amplify/ui-react';
 import { useStorageURL } from '@aws-amplify/ui-react/internal';
 
@@ -26,6 +27,15 @@ export const StorageImage = ({
     fallbackURL: fallbackSrc,
     onStorageGetError,
   });
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storageimage']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
 
   return (
     <Image

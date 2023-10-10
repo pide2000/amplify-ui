@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 
 import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
@@ -89,6 +91,15 @@ function DeleteUser({
   if (state === 'DONE') {
     return null;
   }
+
+  useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storagemanager']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
 
   return (
     <Flex className={ComponentClassName.DeleteUser} direction="column">

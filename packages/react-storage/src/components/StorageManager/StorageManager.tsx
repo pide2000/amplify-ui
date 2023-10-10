@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Logger } from 'aws-amplify';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
@@ -229,6 +230,15 @@ function StorageManagerBase(
       hiddenInput.current.value = '';
     }
   }
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storagemanager']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
 
   return (
     <Components.Container

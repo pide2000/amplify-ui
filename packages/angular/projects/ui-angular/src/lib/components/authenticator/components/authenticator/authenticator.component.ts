@@ -10,16 +10,17 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import {
   AuthenticatorMachineOptions,
   authenticatorTextUtil,
-  configureComponent,
+  // configureComponent,
   SocialProvider,
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { VERSION } from '../../../../../version';
+// import { VERSION } from '../../../../../version';
 
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
@@ -51,6 +52,7 @@ export class AuthenticatorComponent
   private hasInitialized = false;
   private isHandlingHubEvent = false;
   private unsubscribeMachine: () => void;
+  private clearCustomUserAgent: () => void;
 
   constructor(
     private authenticator: AuthenticatorService,
@@ -77,9 +79,15 @@ export class AuthenticatorComponent
       formFields,
     } = this;
 
-    configureComponent({
-      packageName: '@aws-amplify/ui-angular',
-      version: VERSION,
+    // configureComponent({
+    //   packageName: '@aws-amplify/ui-angular',
+    //   version: VERSION,
+    // });
+
+    this.clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'authenticator']],
     });
 
     const { initializeMachine } = this.authenticator;
@@ -156,6 +164,7 @@ export class AuthenticatorComponent
 
   ngOnDestroy(): void {
     if (this.unsubscribeMachine) this.unsubscribeMachine();
+    this.clearCustomUserAgent();
   }
 
   /**

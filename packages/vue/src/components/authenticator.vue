@@ -8,19 +8,19 @@ import {
   onUnmounted,
   withDefaults,
 } from 'vue';
-
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import {
   AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
   SocialProvider,
   authenticatorTextUtil,
-  configureComponent,
+  // configureComponent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
-import { VERSION } from '../version';
+// import { VERSION } from '../version';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -76,6 +76,7 @@ const emit = defineEmits([
 ]);
 
 let unsubscribeMachine: () => void;
+let clearCustomUserAgent: () => void;
 
 const hasInitialized = ref(false);
 
@@ -113,13 +114,15 @@ const facade: UseAuthenticator = useAuthenticator();
 const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
-  configureComponent({
-    packageName: '@aws-amplify/ui-vue',
-    version: VERSION,
+  clearCustomUserAgent = setCustomUserAgent({
+    category: Category.Storage,
+    apis: [StorageAction.GetUrl],
+    additionalDetails: [['component', 'authenticator']],
   });
 });
 
 onUnmounted(() => {
+  clearCustomUserAgent();
   unsubscribeMachine();
 });
 

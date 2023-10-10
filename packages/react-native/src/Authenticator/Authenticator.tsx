@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import {
   AuthenticatorProvider as Provider,
   AuthenticatorMachineContext,
@@ -10,13 +10,13 @@ import {
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 
-import { configureComponent } from '@aws-amplify/ui';
+// import { configureComponent } from '@aws-amplify/ui';
 
 import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
-import { VERSION } from '../version';
+// import { VERSION } from '../version';
 
 import {
   ConfirmResetPassword,
@@ -65,10 +65,12 @@ function Authenticator({
   });
 
   React.useEffect(() => {
-    configureComponent({
-      packageName: '@aws-amplify/ui-react-native',
-      version: VERSION,
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'authenticator']],
     });
+    return () => clearCustomUserAgent();
   }, []);
 
   useAuthenticatorInitMachine(options);

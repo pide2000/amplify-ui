@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
@@ -72,6 +73,15 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
  */
 export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   const { current: map } = useMap();
+
+  useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storagemanager']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
 
   /**
    * This logic determines whether the LocationSearch exists as part of a Map component or if it is a standalone component.

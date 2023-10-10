@@ -4,7 +4,7 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { appendToCognitoUserAgent } from '@aws-amplify/auth';
+// import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
@@ -12,14 +12,14 @@ import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
 import { isFunction } from '../../utils';
 
-type ConfigureOptions = { packageName: string; version: string };
-export const configureComponent = ({
-  packageName,
-  version,
-}: ConfigureOptions) => {
-  // "@aws-amplify/ui-react" + "/" + "3.5.10"
-  appendToCognitoUserAgent(`${packageName}/${version}`);
-};
+// type ConfigureOptions = { packageName: string; version: string };
+// export const configureComponent = ({
+//   packageName,
+//   version,
+// }: ConfigureOptions) => {
+//   // "@aws-amplify/ui-react" + "/" + "3.5.10"
+//   appendToCognitoUserAgent(`${packageName}/${version}`);
+// };
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {

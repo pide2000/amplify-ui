@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { setCustomUserAgent } from 'aws-amplify/internals/user-agent';
 import { Credentials as AmplifyCredentials } from '@aws-amplify/core';
 import {
   AwsTemporaryCredentials,
@@ -25,6 +26,16 @@ export default function FaceLivenessDetector(
   props: FaceLivenessDetectorProps
 ): JSX.Element {
   const { config, ...rest } = props;
+
+  React.useEffect(() => {
+    const clearCustomUserAgent = setCustomUserAgent({
+      category: Category.Storage,
+      apis: [StorageAction.GetUrl],
+      additionalDetails: [['component', 'storagemanager']],
+    });
+    return () => clearCustomUserAgent();
+  }, []);
+
   return (
     <FaceLivenessDetectorCore
       {...rest}
