@@ -1,0 +1,28 @@
+# Description: This workflow runs unit + e2e tests, then publishes UI packages
+#              to `@next-release/migration-bug-bash` NPM tag.
+#
+# Triggered by: merge to `next-release/migration-bug-bash`
+
+name: POC Test and Publish / next-release
+
+on:
+  push:
+    branches: [next-release/migration-bug-bash]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@next-release/migration-bug-bash
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: next-release-bug-bash
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
