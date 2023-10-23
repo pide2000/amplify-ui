@@ -31,7 +31,6 @@ export type ComponentName =
   | 'DeleteUser'
   | 'FaceLivenessDetector'
   | 'InAppMessaging'
-  | 'FaceLivenessDetector'
   | 'LocationSearch'
   | 'MapView'
   | 'StorageManager'
