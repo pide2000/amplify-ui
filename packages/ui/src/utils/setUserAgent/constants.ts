@@ -1,17 +1,18 @@
 import {
+  AuthAction,
   AuthUserAgentInput,
+  Category,
+  GeoAction,
   GeoUserAgentInput,
   InAppMessagingUserAgentInput,
-  StorageUserAgentInput,
-  AuthAction,
-  GeoAction,
   InAppMessagingAction,
+  SetCustomUserAgentInput,
   StorageAction,
-  Category,
+  StorageUserAgentInput,
 } from '@aws-amplify/core/internals/utils';
 
 export const ACCOUNT_SETTINGS_INPUT_BASE: Omit<
-  AuthUserAgentInput,
+  SetCustomUserAgentInput,
   'additionalDetails'
 > = {
   apis: [AuthAction.DeleteUser, AuthAction.UpdatePassword],
